@@ -1,5 +1,6 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
+import os
 
 # Start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -11,8 +12,8 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Main function
 def main():
-    # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-    application = ApplicationBuilder().token("YOUR_BOT_TOKEN").build()
+    BOT_TOKEN = os.environ["BOT_TOKEN"]
+    application = ApplicationBuilder().token(BOT_TOKEN).build()
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
